@@ -1,0 +1,23 @@
+{
+  "name": "server-node",
+  "version": "0.0.0",
+  "description": "A simple TCP echo server in Node.js",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "devDependencies": {},
+  "author": "NaumenkoAleksandr",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NaumenkoAleksandr/server-node.git"
+  },
+  "keywords": [
+    "server-node"
+  ],
+  "bugs": {
+    "url": "https://github.com/NaumenkoAleksandr/server-node/issues"
+  },
+  "homepage": "https://github.com/NaumenkoAleksandr/server-node#readme"
+}
