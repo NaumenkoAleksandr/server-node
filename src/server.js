@@ -2,23 +2,44 @@ const net = require('node:net');
 
 const PORT = 8080;
 
-const server = net.createServer((socket) => {
-    console.log('Client connected');
+class TCPServer {
+    constructor(port = PORT) {
+        this.port = port;
+        this.server = net.createServer(this.setupServer);
 
-    socket.on('data', (data) => {
-        console.log(`Received: ${data}`);
-        socket.write(data); // Echo back the received data
-    });
+        this.server.on('error', (err) => {
+            throw err;
+          });
+    }
 
-    socket.on('end', () => {
-        console.log('Client disconnected');
-    });
-});
+    setupServer = (socket) => {
+        console.log('Client connected');
+    
+        socket.on('data', this.handleRequest(socket));
+    
+        socket.on('end', () => {
+            console.log('Client disconnected');
+        });
+    }
 
-server.on('error', (err) => {
-    throw err;
-  });
+    start = () => {
+        this.server.listen(this.port, () => {
+            console.log(`TCP Echo Server is running on port ${this.port}`);
+        });
+    }
 
-server.listen(PORT, () => {
-    console.log(`TCP Echo Server is running on port ${PORT}`);
-});
+    stop = () => {
+        this.server.close(() => {
+            console.log('TCP Echo Server is closed');
+        });
+    }
+
+    handleRequest = (socket) => {
+        return (data) => {
+            console.log(`Received: ${data}`);
+            socket.write(data); // Echo back the received data
+        }
+    }
+}
+
+module.exports = TCPServer;
